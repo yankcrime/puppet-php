@@ -28,6 +28,8 @@ define php::fpm::conf (
   $listen_group              = undef,
   $listen_mode               = undef,
   $listen_allowed_clients    = '127.0.0.1',
+  $fpm_pool_dir              = $::php::params::fpm_pool_dir,
+  $fpm_conf_dir              = $::php::params::fpm_conf_dir,
   $process_priority          = undef,
   $pm                        = 'dynamic',
   $pm_max_children           = '50',
@@ -75,7 +77,7 @@ define php::fpm::conf (
     default => $service_name,
   }
 
-  file { "${php::params::fpm_pool_dir}/${pool}.conf":
+  file { "${fpm_pool_dir}/${pool}.conf":
     ensure  => $ensure,
     content => template('php/fpm/pool.conf.erb'),
     owner   => 'root',
