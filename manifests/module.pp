@@ -9,6 +9,7 @@
 #  php::module { 'pecl-apc': }
 #
 define php::module (
+  $php_package_name = $::php::params::php_package_name,
   $ensure = installed,
 ) {
 
@@ -21,7 +22,7 @@ define php::module (
     # Hack to get pkg prefixes to work, i.e. php56-mcrypt title
     $package = $title ? {
       /^php/  => $title,
-      default => "${::php::params::php_package_name}-${title}"
+      default => "${php_package_name}-${title}"
     }
   }
 
